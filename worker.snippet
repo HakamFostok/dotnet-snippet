@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>worker</Title>
+			<Shortcut>worker</Shortcut>
+			<Description>Code snippet for Hosted Service in .NET</Description>
+			<Author>Hakan FISTIK</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				
+				<Literal Editable="true">
+					<ID>namespace</ID>
+					<ToolTip>Namespace of the file</ToolTip>
+					<Default>BT_IQM.Application.BackgroundServices</Default>
+				</Literal>
+				<Literal Editable="true">
+					<ID>classname</ID>
+					<ToolTip>Class name</ToolTip>
+					<Default>ClassName</Default>
+				</Literal>
+				<Literal Editable="true">
+					<ID>appServiceName</ID>
+					<ToolTip>AppService Interface</ToolTip>
+					<Default>AppService</Default>
+				</Literal>
+				<Literal Editable="true">
+					<ID>methodName</ID>
+					<ToolTip>Method Name</ToolTip>
+					<Default>MethodName</Default>
+				</Literal>
+				<Literal Editable="true">
+					<ID>period</ID>
+					<ToolTip>Period of Delay</ToolTip>
+					<Default>1000</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp">
+				<![CDATA[using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace $namespace$
+{
+    public class $classname$Service : LoggerBackgroundService<$classname$Service>
+    {
+        public $classname$Service(IServiceProvider serviceProvider, ILogger<$classname$Service> logger)
+            : base($period$, serviceProvider, logger)
+        {
+        }
+
+        public override async Task Run(CancellationToken cancellationToken)
+        {
+            using IServiceScope scope = _serviceProvider.CreateScope();
+
+            using I$appServiceName$ appService = scope.ServiceProvider.GetService<I$appServiceName$>();
+
+            await appService.$methodName$();
+        }
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
